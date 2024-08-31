@@ -63,7 +63,9 @@ return [
         "stock"                      => "Stock",
         "reason"                     => "Reason",
         "total_return_price"         => "Total Return Price",
-        "source"                     => "Source"
+        "source"                     => "Source",
+        "about"                     => "About",
+        "blogs"                     => "Blogs"
     ],
     'message' => [
         'validation_error'                 => 'Validation Error.',

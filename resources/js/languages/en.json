@@ -97,6 +97,8 @@
         "location_setup":"Location Setup"
     },
     "label": {
+        "about": "About",
+        "blogs": "Blogs",
         "license_key": "License Key",
         "previous": "Previous",
         "next": "Next",
