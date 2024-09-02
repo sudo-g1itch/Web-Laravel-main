@@ -4,7 +4,7 @@
         <div class="container">
             <Swiper
                 v-if="sliders.length > 0"
-                dir="rtl"
+                dir="ltr"
                 :slides-per-view="1"
                 :speed="1000"
                 :loop="true"

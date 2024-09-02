@@ -14,6 +14,7 @@ import PromotionProductComponent from "../../components/frontend/product/Promoti
 import ProductSectionProductComponent from "../../components/frontend/product/ProductSectionProductComponent";
 import FlashSaleProductComponent from "../../components/frontend/product/FlashSaleProductComponent";
 import OfferProductComponent from "../../components/frontend/product/OfferProductComponent";
+import ContactUsComponent from "../../components/frontend/page/ContactUsComponent.vue";
 import OverviewComponent from "../../components/frontend/account/overview/OverviewComponent";
 import AccountComponent from "../../components/frontend/account/AccountComponent";
 import AccountInfoComponent from "../../components/frontend/account/accountInfo/AccountInfoComponent";
@@ -59,6 +60,33 @@ export default [
         path: "/offers",
         component: OfferProductComponent,
         name: "frontend.offers",
+        meta: {
+            isFrontend: true,
+            auth: false,
+        },
+    },
+    {
+        path: "/about",
+        component: OfferProductComponent,
+        name: "frontend.about",
+        meta: {
+            isFrontend: true,
+            auth: false,
+        },
+    },
+    {
+        path: "/blogs",
+        component: OfferProductComponent,
+        name: "frontend.blogs",
+        meta: {
+            isFrontend: true,
+            auth: false,
+        },
+    },
+    {
+        path: "/contact",
+        component: ContactUsComponent,
+        name: "frontend.contact",
         meta: {
             isFrontend: true,
             auth: false,
