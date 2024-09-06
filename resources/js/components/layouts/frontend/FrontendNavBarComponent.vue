@@ -3,7 +3,7 @@
     <header
         :class="isSticky === true ? 'fixed top-0 left-0 z-30 w-full mb-5 sm:mb-8 shadow-xs bg-white' : 'mb-5 sm:mb-8 shadow-xs bg-white'">
         <div class="container py-3.5 px-4 lg:py-0">
-            <div class="flex items-center justify-between gap-5">
+            <div class="flex items-center justify-between">
                 <!--  Logo & Mobile Responsive Start -->
                 <div class="flex items-center flex-shrink-0 gap-5">
                     <button type="button" class="leading-none block lg:hidden"
@@ -17,10 +17,33 @@
                     </router-link>
                 </div>
 
-                <button type="button" class="leading-none block lg:hidden"
-                    @click.prevent="showTarget('search', 'search-active')">
-                    <i class="lab-line-search text-xl"></i>
-                </button>
+                <div class="flex items-center flex-shrink-0 gap-5">
+                    <button type="button" class="leading-none block lg:hidden"
+                        @click.prevent="showTarget('search', 'search-active')">
+                        <i class="lab-line-search text-xl"></i>
+                    </button>
+
+                    <button v-if="!logged" type="button" class="leading-none block lg:hidden lab-line-user text-xl py-5"
+                        @click.prevent="showLoginPage()">
+                    </button>
+
+                    <button type="button" class="leading-none block lg:hidden"
+                        @click.prevent="showTarget('cart-canvas', 'canvas-active')">
+                        <i
+                            class="lab-line-bag text-xl w-10 h-10 !leading-10 text-center rounded-full bg-secondary text-white">
+                        </i>
+                    </button>
+                </div>
+
+                <!-- <button @click.prevent="showTarget('cart-canvas', 'canvas-active')" type="button"
+                    class="hidden lg:block flex-shrink-0 relative">
+                    <i
+                        class="lab-line-bag text-xl w-10 h-10 !leading-10 text-center rounded-full bg-secondary text-white"></i>
+                    <span v-if="carts.length > 0"
+                        class="absolute top-4 ltr:right-1 rtl:left-1 text-[10px] font-medium h-4 px-1 leading-[14px] text-center rounded-full border border-heading text-white bg-primary">
+                        {{ carts.length }}
+                    </span>
+                </button> -->
                 <!--  Logo & Mobile Responsive End -->
 
                 <!-- MenuBar Start -->
@@ -39,67 +62,34 @@
                                 {{ $t('label.shop') }}
                             </button>
                             <div
-                                class="fixed top-[64px] left-0 z-10 w-full origin-top scale-y-0 transition-all duration-300">
+                                class="fixed top-[64px] left-0 p-8 z-10 w-full origin-top scale-y-0 transition-all duration-300">
                                 <div class="container">
                                     <div class="w-full rounded-b-2xl shadow-paper bg-white">
-                                        <nav class="w-full flex items-center justify-center">
-                                            <router-link v-for="(category, index) in categories" :key="index"
-                                                :to="{ name: 'frontend.product', query: { category: category.slug } }"
-                                                @mouseover.prevent="activeTab = 'category_' + category.slug"
-                                                class="capitalize text-sm font-semibold tracking-wide px-5 py-4 transition-all duration-300 relative before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:bg-primary hover:text-primary"
-                                                :class="{ 'text-primary before:w-full before:transition-all before:duration-300': activeTab === 'category_' + category.slug }">
-                                                <img class="w-full block rounded-tl-2xl rounded-tr-2xl"
-                                                    :src="category.thumb" alt="category">
-                                                <span
-                                                    class="text-sm sm:text-xl font-medium capitalize text-center py-2 px-3 overflow-hidden whitespace-nowrap text-ellipsis block rounded-bl-2xl rounded-br-2xl group-hover:text-primary">
-                                                    {{ category.name }}
-                                                </span>
-                                                <!-- {{ category.name }} -->
-                                            </router-link>
-                                            <!-- <router-link
-                                                :to="{ name: 'frontend.product', query: { category: category.slug } }"
-                                                @mouseover.prevent="activeTab = 'category_' + category.slug"
-                                                class="w-full rounded-2xl shadow-xs group">
-                                                <img class="w-full block rounded-tl-2xl rounded-tr-2xl"
-                                                    :src="category.thumb" alt="category">
-                                                <span
-                                                    class="text-sm sm:text-xl font-medium capitalize text-center py-2 px-3 overflow-hidden whitespace-nowrap text-ellipsis block rounded-bl-2xl rounded-br-2xl group-hover:text-primary">
-                                                    {{ category.name }}
-                                                </span>
-                                            </router-link> -->
-                                        </nav>
-                                        <div v-for="category in categories">
-                                            <div v-if="category.children.length > 0"
-                                                :class="{ 'block': activeTab === 'category_' + category.slug, 'hidden': activeTab !== 'category_' + category.slug }"
-                                                class="flex items-start gap-5 pb-5 border-t border-gray-200">
-                                                <div class="w-60 h-80 flex-shrink-0 pt-5 ltr:pl-5 rtl:pr-5">
-                                                    <img class="w-full h-full object-top object-cover rounded-lg"
-                                                        :src="category.cover" alt="category" />
-                                                </div>
-                                                <div class="w-full h-80 thin-scrolling pt-5 ltr:pr-5 rtl:pl-5">
-                                                    <div class="w-full grid gap-5 grid-cols-3">
-                                                        <div v-for="children in category.children" class="self-start">
-                                                            <h3
-                                                                class="text-sm font-semibold capitalize pb-3 border-b border-slate-200">
-                                                                <router-link
-                                                                    :to="{ name: 'frontend.product', query: { category: children.slug } }"
-                                                                    class="hover:text-primary transition-all duration-300">
-                                                                    {{ children.name }}
-                                                                </router-link>
-                                                            </h3>
+                                        <div class="container mx-auto p-4">
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                                <div v-for="(category, index) in categories" :key="index"
+                                                    @mouseover.prevent="activeTab = 'category_' + category.slug"
+                                                    @click="navigateToCategory(category.slug)"
+                                                    class="bg-white rounded-lg shadow-md p-6 cursor-pointer transition-all duration-300 relative flex items-center justify-between gap-2">
 
-                                                            <nav v-if="children.children.length > 0"
-                                                                class="flex flex-col mt-2">
-                                                                <MenuChildrenComponent
-                                                                    :categories="children.children" />
-                                                            </nav>
-                                                        </div>
+                                                    <div class="flex-1 text-left min-w-0">
+                                                        <h2 class="text-l font-bold mb-2"
+                                                            :class="{ 'text-primary': activeTab === 'category_' + category.slug }">
+                                                            {{ category.name }}
+                                                        </h2>
                                                     </div>
+
+                                                    <img class="w-24 h-24 object-contain ml-4 flex-shrink-0"
+                                                        :src="category.media[0].original_url" alt="category">
+
                                                 </div>
+
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </li>
 
@@ -540,6 +530,15 @@ export default {
                 return true;
             }
         },
+        showLoginPage() {
+            this.$router.push({ name: "auth.login" });
+        },
+        showRegisterPage() {
+            this.$router.push({ name: "frontend.home" });
+        },
+        navigateToCategory(slug) {
+            this.$router.push({ name: 'frontend.product', query: { category: slug } });
+        },
         changeLanguage: function (id, code, mode) {
             this.defaultLanguage = id;
             this.$store.dispatch("globalState/set", {
@@ -552,6 +551,7 @@ export default {
                 }).catch();
             }).catch();
         },
+
         logout: function () {
             this.$store.dispatch("logout").then(res => {
                 this.$router.push({ name: "frontend.home" });

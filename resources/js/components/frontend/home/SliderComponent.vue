@@ -1,7 +1,7 @@
 <template>
     <LoadingComponent :props="loading" />
-    <section class="mb-10 sm:mb-20">
-        <div class="container">
+    <section class="mb-10 sm:mb-20 w-full">
+        <div class="container !w-full">
             <Swiper
                 v-if="sliders.length > 0"
                 dir="ltr"
