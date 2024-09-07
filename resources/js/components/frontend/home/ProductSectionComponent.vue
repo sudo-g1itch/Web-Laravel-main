@@ -23,7 +23,7 @@
             <section v-if="key === promotionKey" class="mb-10 sm:mb-20">
                 <div class="container">
                     <router-link :to="{name: 'frontend.promotion.products', params: { slug: promotion.slug }}">
-                        <img class="w-full rounded-3xl" :src="promotion.preview" alt="promotion" >
+                        <img class="w-full rounded-3xl" src="http://betterfoodfactory.in/storage/65/conversions/Screenshot-2024-07-31-131435-cover.png" alt="promotion" >
                     </router-link>
                 </div>
             </section>
