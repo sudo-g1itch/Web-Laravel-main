@@ -19,7 +19,7 @@
             </div>
         </section>
 
-        <div v-for="(promotion, promotionKey) in promotions" class="p-0 m-0">
+        <div v-for="(promotion, promotionKey) in promotions" class="p-0 m-0 w-full">
             <section v-if="key === promotionKey" class="mb-10 sm:mb-20">
                 <div class="container">
                     <router-link :to="{name: 'frontend.promotion.products', params: { slug: promotion.slug }}">

@@ -1,8 +1,8 @@
 <template>
 
     <header
-        :class="isSticky === true ? 'fixed top-0 left-0 z-30 w-full mb-5 sm:mb-8 shadow-xs bg-white' : 'mb-5 sm:mb-8 shadow-xs bg-white'">
-        <div class="container py-3.5 px-4 lg:py-0">
+        :class="isSticky === true ? 'fixed top-0 left-0 z-30 w-full mb-5 sm:mb-8 shadow-xs bg-white' : 'mb-5 sm:mb-8 shadow-xs w-full bg-white'">
+        <div class="container py-3.5 px-4 lg:py-0 w-full">
             <div class="flex items-center justify-between">
                 <!--  Logo & Mobile Responsive Start -->
                 <div class="flex items-center flex-shrink-0 gap-5">
@@ -23,8 +23,11 @@
                         <i class="lab-line-search text-xl"></i>
                     </button>
 
-                    <button v-if="!logged" type="button" class="leading-none block lg:hidden lab-line-user text-xl py-5"
+                    <button v-if="!logged" type="button" class="leading-none block lg:hidden"
                         @click.prevent="showLoginPage()">
+                        <i class="lab-line-user text-xl py-5">
+
+                        </i>
                     </button>
 
                     <button type="button" class="leading-none block lg:hidden"
