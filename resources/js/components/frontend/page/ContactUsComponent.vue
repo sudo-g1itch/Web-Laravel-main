@@ -1,14 +1,19 @@
 <template>
-    <div class="row mb-7">
-        <div class="col-12 sm:col-6 mb-2" v-if="outlets.length > 0" v-for="outlet in outlets">
+    <div class="flex flex-col items-center mb-7">
+        <div
+            class="w-full sm:w-1/2 mb-2 flex flex-col items-center text-center"
+            v-if="outlets.length > 0"
+            v-for="outlet in outlets"
+            :key="outlet.id"
+        >
             <div class="flex items-center gap-2 mb-3">
                 <span class="w-6 h-6 rounded-full flex items-center justify-center bg-primary">
                     <i class="lab lab-line-branches text-white !text-xs"></i>
                 </span>
                 <h3 class="font-medium leading-6">{{ outlet.name }}</h3>
             </div>
-            <ul class="flex flex-col gap-2">
-                <li class="flex items-center gap-2.5">
+            <ul class="flex flex-col gap-2 text-center">
+                <li class="flex items-center gap-2.5 justify-center">
                     <i class="lab lab-line-location lab-font-size-14"></i>
                     <span class="text-sm leading-6 text-heading">
                         <span v-if="outlet.address">{{ outlet.address }}</span>
@@ -20,21 +25,21 @@
                         </span>
                     </span>
                 </li>
-                <li class="flex items-center gap-2.5">
+                <li class="flex items-center gap-2.5 justify-center">
                     <i class="lab lab-call-calling lab-font-size-14"></i>
                     <span class="text-sm leading-6 text-heading">{{ outlet.country_code }}{{ outlet.phone }}</span>
                 </li>
             </ul>
         </div>
     </div>
-    <div>
-        <h2 class="text-[22px] leading-[34px] font-medium capitalize mb-3">{{ $t('label.support') }}</h2>
-        <ul class="flex flex-col gap-2">
-            <li class="flex items-center gap-2.5">
+    <div class="flex flex-col items-center">
+        <h2 class="text-[22px] leading-[34px] font-medium capitalize mb-3 text-center">{{ $t('label.support') }}</h2>
+        <ul class="flex flex-col gap-2 text-center">
+            <li class="flex items-center gap-2.5 justify-center">
                 <i class="lab lab-line-mail lab-font-size-14"></i>
                 <span class="text-sm leading-6 text-heading">{{ setting.company_email }}</span>
             </li>
-            <li class="flex items-center gap-2.5">
+            <li class="flex items-center gap-2.5 justify-center">
                 <i class="lab lab-call-calling lab-font-size-14"></i>
                 <span class="text-sm font-medium leading-6 text-heading">{{ setting.company_calling_code }}{{ setting.company_phone }}</span>
             </li>
@@ -43,8 +48,6 @@
 </template>
 
 <script>
-
-
 import statusEnum from "../../../enums/modules/statusEnum";
 
 export default {

@@ -15,6 +15,7 @@ import ProductSectionProductComponent from "../../components/frontend/product/Pr
 import FlashSaleProductComponent from "../../components/frontend/product/FlashSaleProductComponent";
 import OfferProductComponent from "../../components/frontend/product/OfferProductComponent";
 import ContactUsComponent from "../../components/frontend/page/ContactUsComponent.vue";
+import AboutUsComponent from "../../components/frontend/page/AboutUsComponent.vue";
 import OverviewComponent from "../../components/frontend/account/overview/OverviewComponent";
 import AccountComponent from "../../components/frontend/account/AccountComponent";
 import AccountInfoComponent from "../../components/frontend/account/accountInfo/AccountInfoComponent";
@@ -87,6 +88,15 @@ export default [
         path: "/contact",
         component: ContactUsComponent,
         name: "frontend.contact",
+        meta: {
+            isFrontend: true,
+            auth: false,
+        },
+    },
+    {
+        path: "/about",
+        component: AboutUsComponent,
+        name: "frontend.about",
         meta: {
             isFrontend: true,
             auth: false,
