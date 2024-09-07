@@ -266,20 +266,14 @@
 
 
             </div>
-            <div class="container bg-black text-white p-2 flex align-items-center justify-content-between w-full overflow-hidden marquee 25s linear infinite"
+            <div v-if="offerProductLists.length > 0" class="container bg-black text-white p-2 flex align-items-center justify-content-between w-full overflow-hidden marquee 25s linear infinite"
                 id="header-offers-auto-scroll">
                 <div class="relative w-full flex overflow-x-hidden overflow-y-hidden">
-                    <div class="animate-marquee whitespace-nowrap">
-                        <span class="mx-4">15% off over ₹5000. Use code CLEANLABEL</span>
-                        <span class="mx-4">Orders dispatch between 24-48 hours</span>
-                        <span class="mx-4">NEW: Pista Badaam Protein! Use code THANDAI, get 15% off!</span>
-                    </div>
-
-                    <div class="absolute top-0 animate-marquee2 whitespace-nowrap">
-                        <span class="mx-4">15% off over ₹5000. Use code CLEANLABEL</span>
-                        <span class="mx-4">Orders dispatch between 24-48 hours</span>
-                        <span class="mx-4">NEW: Pista Badaam Protein! Use code THANDAI, get 15% off!</span>
-                    </div>
+                    <marquee>
+                        <span class="mx-4"  v-for="product in offerProductLists">
+                            {{ product.name }} now at ₹{{ product.discounted_price }}!
+                        </span>
+                    </marquee>
                 </div>
 
             </div>
@@ -375,6 +369,7 @@ export default {
                 isActive: false,
             },
             searchProductLists: [],
+            offerProductLists: [],
             currentRoute: "",
             defaultLanguage: null,
             enums: {
@@ -426,9 +421,6 @@ export default {
         carts: function () {
             return this.$store.getters['frontendCart/lists'];
         },
-        offers: function () {
-            return this.$store.getters['frontendCart/lists'];
-        }
     },
     mounted() {
         this.currentRoute = this.$route.path;
@@ -533,6 +525,24 @@ export default {
                 return true;
             }
         },
+        offerProducts: function (page = 1) {
+            // this.loadingContent.isActive = true;
+            this.$store.dispatch("frontendProduct/offerProducts", {
+                paginate: 1,
+                page: page,
+                per_page: 32,
+                order_column: "name",
+                order_type: "asc",
+            }).then((res) => {
+                // this.loadingContent.isActive = false;
+                this.offerProductLists = res.data.data;
+                console.log(res);
+
+            }).catch((err) => {
+                this.offerProductLists = [];
+                // this.loadingContent.isActive = false;
+            });
+        },
         showLoginPage() {
             this.$router.push({ name: "auth.login" });
         },
@@ -568,6 +578,7 @@ export default {
             }
         },
         orderPermissionCheck: function () {
+            this.offerProducts();
             const permissions = this.$store.getters.authPermission;
             if (permissions.length > 0) {
                 _.forEach(permissions, (permission) => {
